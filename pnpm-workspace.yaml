@@ -68,12 +68,14 @@ catalog:
 
 autoInstallPeers: false
 
-onlyBuiltDependencies:
-  - '@swc/core'
-  - esbuild
-  - msw
-  - sqlite3
-  - unrs-resolver
+# pnpm 11+ exige allowBuilds (mapa de pacote: true|false) no lugar do antigo onlyBuiltDependencies.
+# Esta é a configuração que resolve o erro ERR_PNPM_IGNORED_BUILDS no pnpm 12.
+allowBuilds:
+  '@swc/core': true
+  esbuild: true
+  msw: true
+  sqlite3: true
+  unrs-resolver: true
 
 overrides:
   # replit uses linux-x64 only, we can exclude all other platforms
