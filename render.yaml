@@ -1,0 +1,18 @@
+cat > render.yaml << 'EOF'
+services:
+  - type: web
+    name: spacesocial
+    runtime: node
+    plan: free
+    region: oregon
+    branch: main
+    autoDeploy: true
+    buildCommand: corepack enable && pnpm install --frozen-lockfile && pnpm --filter @workspace/api-server build
+    startCommand: pnpm --filter @workspace/api-server start
+    healthCheckPath: /
+    envVars:
+      - key: NODE_VERSION
+        value: 24.21.0
+      - key: NODE_ENV
+        value: production
+EOF
