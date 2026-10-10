@@ -1,0 +1,45 @@
+modules = ["nodejs-24", "python-3.11", "postgresql-16"]
+
+[deployment]
+router = "application"
+deploymentTarget = "autoscale"
+
+[deployment.postBuild]
+args = ["pnpm", "store", "prune"]
+env = { "CI" = "true" }
+
+[workflows]
+runButton = "Project"
+
+[agent]
+stack = "PNPM_WORKSPACE"
+expertMode = true
+
+[postMerge]
+path = "scripts/post-merge.sh"
+timeoutMs = 20000
+
+[[ports]]
+localPort = 8080
+externalPort = 8080
+
+[[ports]]
+localPort = 8081
+externalPort = 80
+
+[[ports]]
+localPort = 22147
+externalPort = 3000
+
+[nix]
+channel = "stable-25_05"
+
+[objectStorage]
+defaultBucketID = "replit-objstore-c7cb41e9-1d62-48fc-8243-91ded50bcaec"
+
+[userenv]
+
+[userenv.shared]
+VAPID_PRIVATE_KEY = "FOST45nrc3I1JkM5RYu3E7jyQXXCz10V7JqKXrc9Eks"
+VAPID_PUBLIC_KEY = "BLiQWf3OKEPWNmJfx2ahPSA6jQQmgfQpMZbVWPbMuANu3vrmElcHpQ2vJH6xzRszvuB_jDpYKt3P5FCiR9RRAOY"
+VAPID_SUBJECT = "mailto:admin@redspace.app"
